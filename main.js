@@ -41,6 +41,7 @@ app.on("ready", function () {
 
   // TODO Populate list of items
   mainWindow.webContents.on("dom-ready", () => {
+    mainWindow.zoomlevel = 0;
     console.log("Dom Ready!");
   });
 
@@ -163,6 +164,22 @@ const mainMenuTemplate = [
           mainWindow.loadURL(
             url.format({
               pathname: path.join(__dirname, "HTML/contact.html"),
+              protocol: "file",
+              slashes: true,
+            })
+          );
+        },
+      },
+
+      {
+        // TODO add route to contacts
+        label: "Auto Skype Call",
+        accelerator: process.platform == "darwin" ? "Command+S" : "Ctrl+S",
+        click() {
+          console.log("Log - Auto Skype Call List Window Loading");
+          mainWindow.loadURL(
+            url.format({
+              pathname: path.join(__dirname, "HTML/call_list.html"),
               protocol: "file",
               slashes: true,
             })

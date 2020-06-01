@@ -1,0 +1,75 @@
+html,
+body {
+  height: 100%;
+}
+
+#contain_footer {
+  position: relative; /* needed for footer positioning*/
+  margin: 0 auto; /* center, not in IE5 */
+  height: auto !important; /* real browsers */
+  height: 100%; /* IE6: treaded as min-height*/
+
+  min-height: 100%; /* real browsers */
+}
+
+footer {
+  position: absolute;
+  bottom: 0; /* stick to bottom */
+  right: 10px;
+  left: 10px;
+  bottom: 10px;
+}
+
+.jumbotron {
+  padding: 20px;
+}
+
+main {
+  padding: 1em 1em 7em; /* bottom padding for footer */
+}
+
+a {
+  color: black !important;
+  font-size: 25px;
+}
+
+a:focus {
+  background: yellow !important;
+  color: black !important
+  ;
+}
+
+a:hover {
+  background: yellow !important;
+  color: black !important;
+}
+
+button:hover {
+  background: yellow !important;
+  color: black !important;
+}
+
+button:focus {
+  background: yellow !important;
+  color: black !important;
+}
+
+.list-group {
+  margin: 10px;
+}
+
+#home_button {
+  color: white !important;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#home_button:focus {
+  color: black !important;
+  background-color: yellow !important;
+}
+
+#home_button:hover {
+  color: black !important;
+  background-color: yellow !important;
+}

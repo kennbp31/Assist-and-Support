@@ -7,8 +7,18 @@ function callLoadContacts() {
   ipcRenderer.send("contacts:call");
 }
 
-// Loading a list of contacts on the screen
-ipcRenderer.on("contacts:load", function (e, rows) {
+// Catches the query results of contacts. Then determines which page is loaded and calls the appropriate contact load function.
+ipcRenderer.on("contacts:load", function (e, db_rows) {
+  var rows = db_rows;
+  if (document.querySelector("HTML").id === "contact.html") {
+    loadContactEditList(rows);
+  } else if (document.querySelector("HTML").id === "call_list.html") {
+    loadCallList(rows);
+  }
+});
+
+// Populates the contact maintenance screen. Users can add, edit, or delete contacts here.
+function loadContactEditList(rows) {
   var tablebody = document.querySelector("tbody");
   tablebody.innerHTML = "";
   console.log("Log - Contact Table Cleared");
@@ -18,8 +28,6 @@ ipcRenderer.on("contacts:load", function (e, rows) {
       .find("tbody")
       .append(
         "<tr><td>" +
-          row.id +
-          "</td><td>" +
           row.first_name +
           "</td><td>" +
           row.last_name +
@@ -27,20 +35,36 @@ ipcRenderer.on("contacts:load", function (e, rows) {
           row.phone_number +
           "</td><td>" +
           row.email +
+          "</td><td>" +
+          row.skype_id +
           "</td><td><button onclick='editRecord(" +
           row.id +
           ")' class='btn btn-primary' type='submit'>Edit</button></td></tr>"
       );
   }
-});
+}
 
-// Call to main to open a new window to edit the record
+// Populates the call list. Intentionally simple, users may have cognitive or motor disabilities.
+function loadCallList(rows) {
+  let callList = document.getElementById("callList");
+  for (row of rows) {
+    console.log("Log - Adding contact to Call List");
+    let nextContact = document.createElement("a");
+    nextContact.innerHTML = row.first_name + " " + row.last_name;
+    nextContact.className =
+      "list-group-item list-group-item-info list-group-item-action";
+    nextContact.href = "skype:" + callerID(row) + "?call&amp;video=true";
+    callList.appendChild(nextContact);
+  }
+}
+
+// Call to main to open a new window to edit the contact record
 function editRecord(id) {
   console.log("Log- Record Being Editted - " + id);
   ipcRenderer.send("contact:edit", id);
 }
 
-// Load Existing Values into the Edit Screen
+// Load Existing Contact information into the Edit Screen
 ipcRenderer.on("contact:loadEdit", function (e, rows) {
   console.log("Log - Message Received, anyone there?");
   for (row of rows) {
@@ -63,8 +87,7 @@ ipcRenderer.on("contact:loadEdit", function (e, rows) {
   form.appendChild(del);
 });
 
-//Submits form to main process. Will update existing record, or create a new record.
-
+//Submits contact update/add form to main process. Will update existing record, or create a new record.
 const form = document.querySelector("form");
 form.addEventListener("submit", submitForm);
 
@@ -91,6 +114,8 @@ function submitForm() {
   }
 }
 
+// Deletes an existing contact
+// TODO - Add deletion event to history table???
 function deleteContact() {
   if (confirm("Do you really want to delete this contact?")) {
     id = document.querySelector("form").id;
@@ -98,4 +123,22 @@ function deleteContact() {
   } else {
     return 0;
   }
+}
+
+// Determine if skype or phone # is to be called.
+function callerID(row) {
+  var contact;
+  console.log("Log - Skype ID is: " + row.skype_id);
+  console.log("Log - Phone Number is: " + row.phone_number);
+  if (
+    row.skype_id === null ||
+    row.skype_id === "" ||
+    row.skype_id === undefined
+  ) {
+    contact = row.phone_number;
+  } else {
+    contact = row.skype_id;
+  }
+  console.log("Log - Contact ID is: " + contact);
+  return contact;
 }
