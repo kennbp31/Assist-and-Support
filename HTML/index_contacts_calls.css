@@ -3,6 +3,22 @@ body {
   height: 100%;
 }
 
+.card {
+  margin-left: 10px;
+  background-color: lightblue;
+  color: black !important;
+  font-size: x-large;
+}
+
+#weather {
+  float: right;
+  margin-right: 10px;
+}
+
+#clock {
+  float: left;
+}
+
 #contain_footer {
   position: relative; /* needed for footer positioning*/
   margin: 0 auto; /* center, not in IE5 */
@@ -30,7 +46,8 @@ main {
 
 a {
   color: black !important;
-  font-size: 25px;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 a:focus {
@@ -56,6 +73,8 @@ button:focus {
 
 .list-group {
   margin: 10px;
+  border-color: black !important;
+  border-width: 3px !important;
 }
 
 #home_button {

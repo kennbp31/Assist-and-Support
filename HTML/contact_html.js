@@ -1,5 +1,6 @@
 const electron = require("electron");
 const { ipcRenderer } = electron;
+const skypeStartCall = require("../AutoHotKey/AHK_calls/skypeStartCall.js");
 
 // Send the load contacts message to main
 function callLoadContacts() {
@@ -54,6 +55,9 @@ function loadCallList(rows) {
     nextContact.className =
       "list-group-item list-group-item-info list-group-item-action";
     nextContact.href = "skype:" + callerID(row) + "?call&amp;video=true";
+    nextContact.onclick = () => {
+      skypeStartCall.startCall();
+    };
     callList.appendChild(nextContact);
   }
 }
