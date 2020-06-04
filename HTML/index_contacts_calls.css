@@ -4,23 +4,28 @@ body {
 }
 
 .card {
-  margin-left: 10px;
   background-color: lightblue;
   color: black !important;
   font-size: x-large;
 }
 
 #weather {
-  float: right;
-  margin-right: 10px;
-}
-
-#clock {
   float: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
-#date {
+#dateTime {
+  float: left;
   padding-bottom: 35px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+#favorites {
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 #contain_footer {

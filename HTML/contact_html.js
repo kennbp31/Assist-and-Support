@@ -15,6 +15,8 @@ ipcRenderer.on("contacts:load", function (e, db_rows) {
     loadContactEditList(rows);
   } else if (document.querySelector("HTML").id === "call_list.html") {
     loadCallList(rows);
+  } else if (document.querySelector("HTML").id === "index.html") {
+    loadFavList(rows);
   }
 });
 
@@ -62,6 +64,27 @@ function loadCallList(rows) {
   }
 }
 
+// Populates the Favorites Contact list on the home screen.
+// Intentionally simple, users may have cognitive or motor disabilities.
+function loadFavList(rows) {
+  let callList = document.getElementById("callList");
+  for (row of rows) {
+    console.log("Log - Favorite T/F", row.fav);
+    if (row.fav === "1") {
+      console.log("Log - Adding contact to Call List");
+      let nextContact = document.createElement("a");
+      nextContact.innerHTML = row.first_name + " " + row.last_name;
+      nextContact.className =
+        "list-group-item list-group-item-info list-group-item-action";
+      nextContact.href = "skype:" + callerID(row) + "?call&amp;video=true";
+      nextContact.onclick = () => {
+        skypeStartCall.startCall();
+      };
+      callList.appendChild(nextContact);
+    }
+  }
+}
+
 // Call to main to open a new window to edit the contact record
 function editRecord(id) {
   console.log("Log- Record Being Editted - " + id);
@@ -79,6 +102,10 @@ ipcRenderer.on("contact:loadEdit", function (e, rows) {
     document.getElementById("phoneNumber").value = row.phone_number;
     document.getElementById("email").value = row.email;
     document.getElementById("skypeID").value = row.skype_id;
+    document.getElementById("pref").value = row.pref;
+    if (row.fav === "1") {
+      document.getElementById("fav").checked = row.fav;
+    }
   }
   let del = document.createElement("button");
   del.className = "btn btn-danger";
@@ -87,7 +114,7 @@ ipcRenderer.on("contact:loadEdit", function (e, rows) {
   del.addEventListener("click", () => {
     deleteContact();
   });
-  let form = document.querySelector("form");
+  let form = document.querySelector("#submit");
   form.appendChild(del);
 });
 
@@ -105,6 +132,8 @@ function submitForm() {
     phone_number: document.getElementById("phoneNumber").value,
     email: document.getElementById("email").value,
     skype_id: document.getElementById("skypeID").value,
+    pref: document.getElementById("pref").value,
+    fav: document.getElementById("fav").checked,
   };
 
   console.log("Log - Data Being Sent: ", contactSubmit);
@@ -129,20 +158,41 @@ function deleteContact() {
   }
 }
 
-// Determine if skype or phone # is to be called.
+//Determine if skype or phone # is to be called.
 function callerID(row) {
   var contact;
   console.log("Log - Skype ID is: " + row.skype_id);
   console.log("Log - Phone Number is: " + row.phone_number);
+  console.log("Log - Preferred Contact Method:", row.pref);
+  // preference is logged as skype, and there is an id
   if (
+    row.pref === "Skype" &&
+    row.skype_id !== null &&
+    row.skype_id !== "" &&
+    row.skype_id !== undefined
+  ) {
+    contact = row.skype_id;
+    // preference is logged as phone, and there is a number.
+  } else if (
+    row.pref === "Phone Number" &&
+    row.phone_number !== null &&
+    row.phone_number !== "" &&
+    row.phone_number !== undefined
+  ) {
+    contact = row.phone_number;
+    // there is no preference
+  } else if (
     row.skype_id === null ||
     row.skype_id === "" ||
     row.skype_id === undefined
+    // if there is no skype id call phone.
   ) {
     contact = row.phone_number;
+    // if there is a skype id, call skype
   } else {
     contact = row.skype_id;
   }
+
   console.log("Log - Contact ID is: " + contact);
   return contact;
 }

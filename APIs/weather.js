@@ -42,23 +42,3 @@ module.exports = {
   geoLocation: geoLocation,
   currWeather: currWeather,
 };
-
-// (async () => {
-//   geo = geoip.lookup(await publicIp.v6());
-//   console.log(geo.ll[0] + " " + geo.ll[1]);
-//   let apiKey = "6e95d5bec883ec1a80131ed56f8c9a94";
-//   let lat = geo.ll[0];
-//   let lon = geo.ll[1];
-//   let url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
-
-//   request(url, function (err, response, body) {
-//     if (err) {
-//       console.log("error:", error);
-//     } else {
-//       let weather = JSON.parse(body);
-//       let message = `It's ${weather.main.temp} degrees with ${weather.weather[0].main} in ${weather.name}!`;
-//       console.log(message);
-//       console.log(weather);
-//     }
-//   });
-// })();

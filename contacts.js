@@ -33,7 +33,13 @@ var contacts = {
 
   submitContactEdit: function (err, id, contactSubmit) {
     console.log("Log - Submit Edit Contact DB Query Begun");
-    console.log("Log - Id and Name: ", id, contactSubmit.first_name);
+    console.log(
+      "Log - Id and Name: ",
+      id,
+      contactSubmit.first_name,
+      contactSubmit.pref,
+      contactSubmit.fav
+    );
     knex("contacts")
       .where({ id: id })
       .update(contactSubmit)
@@ -44,7 +50,12 @@ var contacts = {
 
   submitContactAdd: function (err, submitAdd) {
     console.log("Log - Submit Add Contact DB Query Begun");
-    console.log("Log - Name: ", submitAdd.first_name);
+    console.log(
+      "Log - Name: ",
+      submitAdd.first_name,
+      submitAdd.pref,
+      submitAdd.fav
+    );
     knex("contacts")
       .insert(submitAdd)
       .catch(err)

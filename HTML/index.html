@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="index.html">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +11,8 @@
     />
     <link href="index_contacts_calls.css" rel="stylesheet" />
   </head>
-  <body>
+  <script src="contact_html.js"></script>
+  <body onload="callLoadContacts()">
     <div class="jumbotron">
       <h1>Assist and Support</h1>
       <hr />
@@ -35,36 +36,47 @@
         </a>
       </div>
       <br />
-      <div id="weather" class="card" style="width: 25rem;">
+      <div id="favorites" class="card" style="width: 25rem;">
         <div class="card-body">
           <h5 class="card-title" style="font-size: 35px;">
-            Current Weather
+            Favorites
           </h5>
-          <h6 class="card-subtitle mb-2 text-muted"style="font-size: 20px;""></h6>
-          <img
-            id="weatherIcon"
-            class="card-img-top"
-            alt="Current Conditions Image"
-            style="width: 100px;"
-          />
-          <p class="card-text"></p>
+          <div class="list-group" id="callList"></div>
         </div>
       </div>
-      <div id="date" class="card" style="width: 25rem;">
+      <div id="dateTime" class="card" style="width: 25rem;">
         <div class="card-body">
-          <h5 class="card-text" style="font-size: 35px">Today's Date  </h5>
+          <h5 class="card-title" style="font-size: 35px">Today's Date  </h5>
             <p style="font-size: 30px" id="dayOfWeek"></p>
             <br>
             <h5 class="card-text" style="font-size: 35px">Time  </h5>
           <p class="card-text" style="font-size: 35px" id="clock"></p>
         </div>
       </div>
+      <script src="displayWeather.js"></script>
+      <div id="weather" class="card" style="width: 25rem;">
+        <div class="card-body">
+          <h5 class="card-title" style="font-size: 35px;">
+            Current Weather
+          </h5>
+          <h6 id="city" class="card-subtitle mb-2 text-muted"style="font-size: 20px;""></h6>
+          <img
+            id="weatherIcon"
+            class="card-img-top"
+            alt="Current Conditions Image"
+            style="width: 100px;"
+          />
+          <p id="weatherConditions" class="card-text"></p>
+        </div>
+      </div>
+      
     </main>
   </body>
 </html>
-<script src="index.js"></script>
+
 <script src="clock.js"></script>
 <script src="date.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
