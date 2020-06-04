@@ -2,7 +2,6 @@ const electron = require("electron");
 const url = require("url");
 const path = require("path");
 const { app, BrowserWindow, Menu, ipcMain } = electron;
-const weather = require("./APIs/weather.js");
 
 var createMainWindow = {
   // Create new window
@@ -31,7 +30,6 @@ var createMainWindow = {
     mainWindow.webContents.on("dom-ready", () => {
       mainWindow.zoomlevel = 0;
       console.log("Dom Ready!");
-      weatherNode(mainWindow);
     });
 
     // Quit app on close
@@ -174,12 +172,3 @@ module.exports = {
   newElectronWindow: newElectronWindow,
   createMainWindow: createMainWindow,
 };
-
-async function weatherNode(mainWindow) {
-  let ip = await weather.ipAddress.ipAdd();
-  let location = await weather.geoLocation.geoLocation(await ip);
-  let currentWeather = await weather.currWeather.currWeather(
-    await location,
-    mainWindow
-  );
-}

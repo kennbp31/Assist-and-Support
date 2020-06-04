@@ -19,6 +19,10 @@ body {
   float: left;
 }
 
+#date {
+  padding-bottom: 35px;
+}
+
 #contain_footer {
   position: relative; /* needed for footer positioning*/
   margin: 0 auto; /* center, not in IE5 */

@@ -1,6 +1,7 @@
 const electron = require("electron");
 const contacts = require("./contacts.js");
 const electronWindows = require("./electronWindows.js");
+const weather = require("./APIs/weather.js");
 
 const { app, ipcMain } = electron;
 
@@ -9,7 +10,20 @@ let addWindow;
 
 // Create the main window/DOM
 app.on("ready", async function () {
-  mainWindow = electronWindows.createMainWindow.createMainWindow();
+  mainWindow = await electronWindows.createMainWindow.createMainWindow();
+
+  // populate Index.html with the current weather.
+  mainWindow.webContents.on("dom-ready", () => {
+    async function weatherNode(mainWindow) {
+      let ip = await weather.ipAddress.ipAdd();
+      let location = await weather.geoLocation.geoLocation(await ip);
+      let currentWeather = await weather.currWeather.currWeather(
+        await location,
+        mainWindow
+      );
+    }
+    weatherNode(mainWindow);
+  });
 });
 
 // Catch contact edit request

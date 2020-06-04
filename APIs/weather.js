@@ -31,9 +31,6 @@ var currWeather = {
       } else {
         var currWeather = await JSON.parse(body);
       }
-      console.log(currWeather);
-      console.log(mainWindow.webContents);
-
       // TODO unable to return values(confusion...), rewrite and send to main prior to passing to html/js
       mainWindow.webContents.send("weather:send", currWeather);
     });
