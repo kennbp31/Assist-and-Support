@@ -3,7 +3,7 @@
 Application to aid individuals with severe dissabilities. Goal is to provide an accessible ui to control their computers and environments. Will interface with sip and puff inputs and more
  
 # DONE
- Back end Built using electron and SQLite 3.
+ Back end Built using electron and SQLite 3.z<br>
  Skype API interface completed.
  Auto Hot Key scripts initiate and end calls
  Contacts screen built on SQLite3 allows adding and editing contacts
