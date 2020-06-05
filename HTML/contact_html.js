@@ -1,3 +1,4 @@
+// These functions handle most of the HTML population for contact editing and calling.
 const electron = require("electron");
 const { ipcRenderer } = electron;
 const ahkExecScripts = require("../AutoHotKey/AHK_calls/ahkExecScripts.js");
@@ -59,7 +60,7 @@ function loadCallList(rows) {
       "list-group-item list-group-item-info list-group-item-action";
     nextContact.href = "skype:" + contactInfo[0] + "?call&amp;video=true";
     nextContact.onclick = () => {
-      ahkExecScripts.startCall(contactInfo[1]);
+      ahkExecScripts.ahkRunScript(contactInfo[1]);
     };
     callList.appendChild(nextContact);
   }
@@ -81,12 +82,13 @@ function loadFavList(rows) {
         "list-group-item list-group-item-info list-group-item-action";
       nextContact.href = "skype:" + contactInfo[0] + "?call&amp;video=true";
       nextContact.onclick = () => {
-        ahkExecScripts.startCall(contactInfo[1]);
+        ahkExecScripts.ahkRunScript(contactInfo[1]);
       };
       callList.appendChild(nextContact);
       count++;
     }
   }
+  // If there are no favorites selected, this container is hidden
   if (count === "0") {
     document.getElementById("hideFavorites").innerHTML = "";
   }
@@ -142,12 +144,12 @@ function submitForm() {
     pref: document.getElementById("pref").value,
     fav: document.getElementById("fav").checked,
   };
-
   console.log("Log - Data Being Sent: ", contactSubmit);
-
+  // If there is an id, contact is to be editted, not added
   if (id) {
     console.log("Log - Contact ID is: " + id);
     ipcRenderer.send("item:submitEdit", id, contactSubmit);
+    // No id, contact is added
   } else {
     ipcRenderer.send("item:submitAdd", contactSubmit);
     console.log("Log - Contact ID is: " + id);

@@ -2,6 +2,7 @@ const electron = require("electron");
 const contacts = require("./contacts.js");
 const electronWindows = require("./electronWindows.js");
 const weather = require("./APIs/weather.js");
+const ahkExecScripts = require("./AutoHotKey/AHK_calls/ahkExecScripts.js");
 
 const { app, ipcMain } = electron;
 
@@ -10,6 +11,7 @@ let addWindow;
 
 // Create the main window/DOM
 app.on("ready", async function () {
+  // Load the main window and menu bar
   mainWindow = await electronWindows.createMainWindow.createMainWindow();
 
   // populate Index.html with the current weather.
@@ -23,6 +25,9 @@ app.on("ready", async function () {
       );
     }
     weatherNode(mainWindow);
+
+    // Start the main input AHK script.
+    ahkExecScripts.ahkRunScript("main");
   });
 });
 

@@ -5,9 +5,10 @@ var ahkExecScripts = {
   ahkFileLibrary: {
     phone: "Initiate_Phone_Call.exe",
     skype: "Initiate_Skype_Call.exe",
+    main: "Main_Input.exe",
   },
 
-  startCall: function (callType) {
+  ahkRunScript: function (callType) {
     console.log(callType);
     let pathname = path.join(__dirname, "../" + this.ahkFileLibrary[callType]);
     exec(pathname, (error, stdout, stderr) => {
