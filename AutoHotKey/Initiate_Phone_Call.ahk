@@ -10,6 +10,8 @@ Send, {Enter}
 
 Sleep, 1000
 
+Send, {Esc}
+
 ToggleLock(0)
 
 ExitApp

@@ -30,6 +30,8 @@ Send {Esc}
 
 Sleep, 500
 
+Send, {Esc}
+
 ToggleLock(0)
 
 ExitApp

@@ -55,7 +55,7 @@ var newElectronWindow = {
     addWindow = new BrowserWindow({
       width: 500,
       height: 800,
-      title: "Add Shopping List Item",
+      title: "Add/Edit Contact",
       webPreferences: {
         nodeIntegration: true,
       },
