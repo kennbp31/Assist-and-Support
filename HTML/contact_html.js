@@ -1,6 +1,6 @@
 const electron = require("electron");
 const { ipcRenderer } = electron;
-const skypeStartCall = require("../AutoHotKey/AHK_calls/skypeStartCall.js");
+const ahkExecScripts = require("../AutoHotKey/AHK_calls/ahkExecScripts.js");
 
 // Send the load contacts message to main
 function callLoadContacts() {
@@ -51,14 +51,15 @@ function loadContactEditList(rows) {
 function loadCallList(rows) {
   let callList = document.getElementById("callList");
   for (row of rows) {
+    let contactInfo = callerID(row);
     console.log("Log - Adding contact to Call List");
     let nextContact = document.createElement("a");
     nextContact.innerHTML = row.first_name + " " + row.last_name;
     nextContact.className =
       "list-group-item list-group-item-info list-group-item-action";
-    nextContact.href = "skype:" + callerID(row) + "?call&amp;video=true";
+    nextContact.href = "skype:" + contactInfo[0] + "?call&amp;video=true";
     nextContact.onclick = () => {
-      skypeStartCall.startCall();
+      ahkExecScripts.startCall(contactInfo[1]);
     };
     callList.appendChild(nextContact);
   }
@@ -68,7 +69,9 @@ function loadCallList(rows) {
 // Intentionally simple, users may have cognitive or motor disabilities.
 function loadFavList(rows) {
   let callList = document.getElementById("callList");
+  let count = "0";
   for (row of rows) {
+    let contactInfo = callerID(row);
     console.log("Log - Favorite T/F", row.fav);
     if (row.fav === "1") {
       console.log("Log - Adding contact to Call List");
@@ -76,12 +79,16 @@ function loadFavList(rows) {
       nextContact.innerHTML = row.first_name + " " + row.last_name;
       nextContact.className =
         "list-group-item list-group-item-info list-group-item-action";
-      nextContact.href = "skype:" + callerID(row) + "?call&amp;video=true";
+      nextContact.href = "skype:" + contactInfo[0] + "?call&amp;video=true";
       nextContact.onclick = () => {
-        skypeStartCall.startCall();
+        ahkExecScripts.startCall(contactInfo[1]);
       };
       callList.appendChild(nextContact);
+      count++;
     }
+  }
+  if (count === "0") {
+    document.getElementById("hideFavorites").innerHTML = "";
   }
 }
 
@@ -161,6 +168,7 @@ function deleteContact() {
 //Determine if skype or phone # is to be called.
 function callerID(row) {
   var contact;
+  var method;
   console.log("Log - Skype ID is: " + row.skype_id);
   console.log("Log - Phone Number is: " + row.phone_number);
   console.log("Log - Preferred Contact Method:", row.pref);
@@ -172,6 +180,7 @@ function callerID(row) {
     row.skype_id !== undefined
   ) {
     contact = row.skype_id;
+    method = "skype";
     // preference is logged as phone, and there is a number.
   } else if (
     row.pref === "Phone Number" &&
@@ -180,6 +189,7 @@ function callerID(row) {
     row.phone_number !== undefined
   ) {
     contact = row.phone_number;
+    method = "phone";
     // there is no preference
   } else if (
     row.skype_id === null ||
@@ -188,11 +198,13 @@ function callerID(row) {
     // if there is no skype id call phone.
   ) {
     contact = row.phone_number;
+    method = "phone";
     // if there is a skype id, call skype
   } else {
     contact = row.skype_id;
+    method = "skype";
   }
 
   console.log("Log - Contact ID is: " + contact);
-  return contact;
+  return [contact, method];
 }
