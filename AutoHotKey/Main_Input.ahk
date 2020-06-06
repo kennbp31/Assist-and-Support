@@ -1,5 +1,7 @@
 ; Purpose of this script is to always run and modify controls based on which screens are open. 
 #SingleInstance, Force
+SendMode Input
+SetWorkingDir, %A_ScriptDir%
 input1 = joy1
 input2 = joy2
 

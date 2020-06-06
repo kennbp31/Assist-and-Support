@@ -1,5 +1,4 @@
 #SingleInstance, Force
-#Include <input_device_setup>
 SendMode Input
 SetWorkingDir, %A_ScriptDir% 
 
@@ -7,19 +6,15 @@ SetWorkingDir, %A_ScriptDir%
 ; TODO: Learn how to use functions and split this bad boi up.
 input1(){
     ToggleLock(1)
+    ; send tab when in assist app
     IfWinActive, Assist_And_Support
     {
-        
-        ; Basic input conversion
-        ; Looking into using environmental variables to determine which keys function as users input.
         send, {tab}
         
     }
+    ; End skype call and return to main app
     IfWinActive, Skype 
     {
-        ; End call shortcut
-        ; Turn of user input
-        
         ; End the call
         send, ^e
         sleep, 1000
@@ -57,8 +52,6 @@ input1(){
     }
     ToggleLock(0)
     ;Need to add behavior to open the app, if it is closed (not exist) 
-    Critical, Off
     return
 }
 #Include <ToggleLock>
-#Include <input_device_setup>

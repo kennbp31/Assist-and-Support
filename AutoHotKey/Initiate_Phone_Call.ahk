@@ -1,4 +1,8 @@
-﻿ToggleLock(1)
+﻿#SingleInstance, Force
+SendMode Input
+SetWorkingDir, %A_ScriptDir%
+
+ToggleLock(1)
 
 Sleep, 2000
 
