@@ -36,29 +36,27 @@ ipcMain.on("contact:edit", function (err, id) {
   console.log("Log - Edit call received");
 
   // Ensure the user only opens one edit window at a time
-  if (addWindow === undefined) {
-    // If the user is editing an existing record, there is an ID. Open edit window and load information.
-    if (id) {
-      addWindow = electronWindows.newElectronWindow.createAddWindow();
+  // If the user is editing an existing record, there is an ID. Open edit window and load information.
+  if (id) {
+    addWindow = electronWindows.newElectronWindow.createAddWindow(
+      "Add/Edit Contact",
+      "HTML/contactedit.html"
+    );
+    // Redundant check for undefined window, worth it to
+    // split up the window creation to diff functions.
+    if (addWindow !== undefined) {
+      // Populate form with existing contact info
       addWindow.webContents.on("did-finish-load", () => {
         contacts.loadEditContact(addWindow, id);
       });
-      // Garbage colletion handle closing window
-      addWindow.on("close", function () {
-        addWindow = undefined;
-      });
-
-      // If there is no id, then it is a new contact, just open a blank contact window.
-    } else {
-      addWindow = electronWindows.newElectronWindow.createAddWindow();
-
-      // Garbage colletion handle
-      addWindow.on("close", function () {
-        addWindow = undefined;
-      });
     }
+
+    // If there is no id, then it is a new contact, just open a blank contact window.
   } else {
-    return 1;
+    addWindow = electronWindows.newElectronWindow.createAddWindow(
+      "Add/Edit Contact",
+      "HTML/contactedit.html"
+    );
   }
 });
 

@@ -3,6 +3,8 @@ const url = require("url");
 const path = require("path");
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 
+let addWindow;
+
 var createMainWindow = {
   // Create new window
   createMainWindow: function () {
@@ -50,32 +52,33 @@ var createMainWindow = {
 
 var newElectronWindow = {
   // Opens a new window - popup win
-  createAddWindow: function () {
-    console.log("Log - Wondow Opening");
-    addWindow = new BrowserWindow({
-      width: 500,
-      height: 800,
-      title: "Add/Edit Contact",
-      webPreferences: {
-        nodeIntegration: true,
-      },
-    });
+  createAddWindow: function (winTitle, urlPage) {
+    if (addWindow === undefined) {
+      console.log("Log - Wondow Opening");
+      addWindow = new BrowserWindow({
+        width: 500,
+        height: 800,
+        title: winTitle,
+        webPreferences: {
+          nodeIntegration: true,
+        },
+      });
+      //
 
-    // Load HTML into window
-    addWindow.loadURL(
-      url.format({
-        pathname: path.join(__dirname, "HTML/contactedit.html"),
-        protocol: "file",
-        slashes: true,
-      })
-    );
-
-    // TODO : Set this only when in development. This option removes menu bar from window
-    //addWindow.setMenuBarVisibility(false);
-
-    addWindow.setAlwaysOnTop(true, "screen");
-
-    return addWindow;
+      // Load HTML into window
+      addWindow.loadURL(
+        url.format({
+          pathname: path.join(__dirname, urlPage),
+          protocol: "file",
+          slashes: true,
+        })
+      );
+      addWindow.setAlwaysOnTop(true, "screen");
+      addWindow.on("close", function () {
+        addWindow = undefined;
+      });
+      return addWindow;
+    }
   },
 };
 
@@ -87,7 +90,7 @@ const mainMenuTemplate = [
     label: "File",
     submenu: [
       {
-        // TODO add route back to home screen
+        // route back to home screen
         label: "Home",
         accelerator: process.platform == "darwin" ? "Command+H" : "Ctrl+H",
         click() {
@@ -103,7 +106,7 @@ const mainMenuTemplate = [
       },
 
       {
-        // TODO add route to contacts
+        // route to contacts
         label: "Contacts",
         accelerator: process.platform == "darwin" ? "Command+W" : "Ctrl+W",
         click() {
@@ -119,7 +122,7 @@ const mainMenuTemplate = [
       },
 
       {
-        // TODO add route to contacts
+        // route to Auto Caller Screen
         label: "Auto Skype Call",
         accelerator: process.platform == "darwin" ? "Command+S" : "Ctrl+S",
         click() {
@@ -139,6 +142,25 @@ const mainMenuTemplate = [
         accelerator: process.platform == "darwin" ? "Command+Q" : "Ctrl+Q",
         click() {
           app.quit();
+        },
+      },
+    ],
+  },
+
+  // Menu for configurations and preferences. (Input setup, home screen design, etc...)
+  {
+    label: "Options",
+    submenu: [
+      {
+        label: "Preferences",
+        accelerator: process.platform == "darwin" ? "Command+P" : "Ctrl+P",
+        click() {
+          // Ensure preferences is not opened yet
+          console.log("Log - Preferences Clicked");
+          newElectronWindow.createAddWindow(
+            "Options and Preferences",
+            "HTML/preferences.html"
+          );
         },
       },
     ],
