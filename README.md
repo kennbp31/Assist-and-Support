@@ -9,10 +9,10 @@ Application to aid individuals with severe dissabilities. Goal is to provide an 
  Contacts screen built on SQLite3 allows adding and editing contacts<br>
  Weather and Date/Time displays added to homescreen<br>
  Favorites added to homescreen (Option available when contacts are added or editted.)<br>
+  Add configuration for users to define their input device<br>
+  Add options to hide elements of home screen<br>
  
 # V1 - TODO:
- Add options to hide elements of home screen<br>
- Add configuration for users to define their input device<br>
  Adjust AHK to reopen app if it closes or crashes.<br>
  
 # V1.1 and beyond - TODO:
