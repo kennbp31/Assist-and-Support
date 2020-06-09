@@ -2,6 +2,8 @@ const electron = require("electron");
 const url = require("url");
 const path = require("path");
 const { app, BrowserWindow, Menu, ipcMain } = electron;
+const fs = require("fs");
+const ini = require("ini");
 
 let addWindow;
 
@@ -77,6 +79,7 @@ var newElectronWindow = {
       addWindow.on("close", function () {
         addWindow = undefined;
       });
+
       return addWindow;
     }
   },
@@ -98,22 +101,6 @@ const mainMenuTemplate = [
           mainWindow.loadURL(
             url.format({
               pathname: path.join(__dirname, "HTML/index.html"),
-              protocol: "file",
-              slashes: true,
-            })
-          );
-        },
-      },
-
-      {
-        // route to contacts
-        label: "Contacts",
-        accelerator: process.platform == "darwin" ? "Command+W" : "Ctrl+W",
-        click() {
-          console.log("Contacts Clicked");
-          mainWindow.loadURL(
-            url.format({
-              pathname: path.join(__dirname, "HTML/contact.html"),
               protocol: "file",
               slashes: true,
             })
@@ -152,15 +139,54 @@ const mainMenuTemplate = [
     label: "Options",
     submenu: [
       {
+        // route to contacts
+        label: "Add/Edit Contacts",
+        accelerator: process.platform == "darwin" ? "Command+W" : "Ctrl+W",
+        click() {
+          console.log("Contacts Clicked");
+          mainWindow.loadURL(
+            url.format({
+              pathname: path.join(__dirname, "HTML/contact.html"),
+              protocol: "file",
+              slashes: true,
+            })
+          );
+        },
+      },
+
+      {
         label: "Preferences",
         accelerator: process.platform == "darwin" ? "Command+P" : "Ctrl+P",
         click() {
           // Ensure preferences is not opened yet
           console.log("Log - Preferences Clicked");
           newElectronWindow.createAddWindow(
-            "Options and Preferences",
+            "Preferences",
             "HTML/preferences.html"
           );
+        },
+      },
+      {
+        label: "Reset Welcome Text",
+        accelerator: process.platform == "darwin" ? "Command+R" : "Ctrl+R",
+        click() {
+          // Ensure preferences is not opened yet
+          console.log("Log - Reset Welcome Clicked");
+          (() => {
+            var config = ini.parse(
+              fs.readFileSync(
+                path.join(__dirname, "/AutoHotKey/Input_Mapping.ini"),
+                "utf-8"
+              )
+            );
+            console.log("Log-Ini:", config);
+            config.Welcome.Display = true;
+
+            fs.writeFileSync(
+              path.join(__dirname, "/AutoHotKey/Input_Mapping.ini"),
+              ini.stringify(config, { section: "" })
+            );
+          })();
         },
       },
     ],

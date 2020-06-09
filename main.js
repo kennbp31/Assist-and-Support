@@ -4,6 +4,9 @@ const electronWindows = require("./electronWindows.js");
 const weather = require("./APIs/weather.js");
 const ahkExecScripts = require("./AutoHotKey/AHK_calls/ahkExecScripts.js");
 
+// Readline lets us tap into the process events
+//const readline = require("readline");
+
 const { app, ipcMain } = electron;
 
 let mainWindow;
@@ -24,6 +27,7 @@ app.on("ready", async function () {
         mainWindow
       );
     }
+    // Send current weather information
     weatherNode(mainWindow);
 
     // Start the main input AHK script.
@@ -38,10 +42,15 @@ ipcMain.on("contact:edit", function (err, id) {
   // Ensure the user only opens one edit window at a time
   // If the user is editing an existing record, there is an ID. Open edit window and load information.
   if (id) {
-    addWindow = electronWindows.newElectronWindow.createAddWindow(
-      "Add/Edit Contact",
-      "HTML/contactedit.html"
-    );
+    if (addWindow === undefined) {
+      addWindow = electronWindows.newElectronWindow.createAddWindow(
+        "Assist_And_Support",
+        "HTML/contactedit.html"
+      );
+      addWindow.on("close", function () {
+        addWindow = undefined;
+      });
+    }
     // Redundant check for undefined window, worth it to
     // split up the window creation to diff functions.
     if (addWindow !== undefined) {
@@ -53,10 +62,15 @@ ipcMain.on("contact:edit", function (err, id) {
 
     // If there is no id, then it is a new contact, just open a blank contact window.
   } else {
-    addWindow = electronWindows.newElectronWindow.createAddWindow(
-      "Add/Edit Contact",
-      "HTML/contactedit.html"
-    );
+    if (addWindow === undefined) {
+      addWindow = electronWindows.newElectronWindow.createAddWindow(
+        "Add/Edit Contact",
+        "HTML/contactedit.html"
+      );
+      addWindow.on("close", function () {
+        addWindow = undefined;
+      });
+    }
   }
 });
 

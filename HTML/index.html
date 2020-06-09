@@ -12,13 +12,29 @@
     <link href="index_contacts_calls.css" rel="stylesheet" />
   </head>
   <script src="contact_html.js"></script>
-  <body onload="callLoadContacts()">
-    <div class="jumbotron">
+  <script src="welcome.js"></script>
+  
+  <body onload="loadIni(), callLoadContacts()">
+    <div class="jumbotron" >
       <h1>Assist and Support</h1>
-      <hr />
-      <p>
-        Use the tools below to make phone calls from an easy user interface!
-      </p>
+      <div id="welcome">
+        <hr />
+        <p>
+          <b>Usage</b> This application is designed to allow individuals with limited mobility and limited motor coordination 
+          to quickly and easily make phone and video calls using Skype. THIS APPLICATION IS NOT A REPLACEMENT FOR AN EMERGENCY CALL BUTTON!
+          <br><br>
+          <b>Options > Add/Edit Contacts: </b>This allows you to add in your contacts. Marking a contact as a favorite will add them to the homescreen.
+          <br><b>Options > Preferences:</b> This option allows you to setup your input device. This application has been designed to work
+          with user defined keypresses, adaptive equipment such as Puff/Sip Devices, OR buttons/gamepads.
+        </p>
+        <button
+            type="button"
+            class="btn btn-primary btn-lg"
+            onclick="welcomeOff()"
+          >
+            Disable This Message
+        </button>
+      </div>
     </div>
     <main>
       <div class="list-group">
@@ -26,19 +42,13 @@
           href="./call_list.html"
           class="list-group-item list-group-item-info list-group-item-action"
         >
-          Skype Call
-        </a>
-        <a
-          href="./contact.html"
-          class="list-group-item list-group-item-info list-group-item-action"
-        >
-          Edit / Add Contacts
+          Full Skype Call List
         </a>
       </div>
       <br />
       <div id="hideFavorites">
-        <div id="favorites" class="card" style="width: 25rem;">
-          <div class="card-body">
+        <div id="favorites" class="card">
+          <div class="card-body" style="overflow-y: auto">
             <h5 class="card-title" style="font-size: 35px;">
               Favorites
             </h5>
@@ -46,7 +56,7 @@
           </div>
         </div>
       </div>
-      <div id="dateTime" class="card" style="width: 25rem;">
+      <div id="dateTime" class="card">
         <div class="card-body">
           <h5 class="card-title" style="font-size: 35px">Today's Date  </h5>
             <p style="font-size: 30px" id="dayOfWeek"></p>
@@ -56,7 +66,7 @@
         </div>
       </div>
       <script src="displayWeather.js"></script>
-      <div id="weather" class="card" style="width: 25rem;">
+      <div id="weather" class="card">
         <div class="card-body">
           <h5 class="card-title" style="font-size: 35px;">
             Current Weather
@@ -78,7 +88,9 @@
 
 <script src="clock.js"></script>
 <script src="date.js"></script>
+<!-- <script src="welcome.js"></script> -->
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+

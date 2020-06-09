@@ -1,17 +1,33 @@
 #SingleInstance, Force
+#NoTrayIcon
 SendMode Input
 SetWorkingDir, %A_ScriptDir% 
 
 ; Purpose of this script is to always run and modify controls based on which screens are open. 
 ; TODO: Learn how to use functions and split this bad boi up.
-input1(){
+input1(input){
     ToggleLock(1)
-    ; send tab when in assist app
+    IfWinActive, Preferences
+    {
+        send, {%input%}
+        ToggleLock(0)
+        Return
+    } 
+    
+    ; safety catch for delete confirmation... may not prove stable
+    IfWinActive, ahk_class #32770
+    {
+        send, {tab} 
+        ToggleLock(0)
+        Return
+    }
+    
+    ; Basic Input mapping
     IfWinActive, Assist_And_Support
     {
-        send, {tab}
-        
+        send, {tab} 
     }
+    
     ; End skype call and return to main app
     IfWinActive, Skype 
     {
@@ -26,9 +42,7 @@ input1(){
         ; Goto home screen
         send, ^h
         sleep, 500
-        ; Renable User Input
-        
-        
+        ; Renable User Input 
     }
     
     ; Safety check - If skype AND assist and support are both not active, activate assist and support

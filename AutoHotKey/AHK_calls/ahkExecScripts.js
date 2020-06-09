@@ -6,6 +6,7 @@ var ahkExecScripts = {
     phone: "Initiate_Phone_Call.exe",
     skype: "Initiate_Skype_Call.exe",
     main: "Main_Input.exe",
+    input: "Key_Identifier.exe",
   },
 
   ahkRunScript: function (callType) {

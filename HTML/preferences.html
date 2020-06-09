@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assist_And_Support</title>
+    <title>Preferences</title>
     <!-- Compiled and minified CSS -->
     <link
       rel="stylesheet"
@@ -12,38 +12,35 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body onload="loadIni()">
     <div style="margin: 10px;">
-      <form>
-        <div class="form-group">
-          <label>Option 1</label>
-          <input type="Text" class="form-control" id="firstName" required />
+      <p><b>Input 1 Moves the Cursor Forward</b></p>
+      <div class="input-group mb-3">
+        
+        <div class="input-group-prepend">
+          
+          <button onclick="inputPrompt('input1')"  class="btn btn-outline-secondary" type="button">Input 1</button>
         </div>
-        <div class="form-group">
-          <label>Option 2</label>
-          <input type="Text" class="form-control" id="middleName" />
+        <input id="input1" disabled type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+      </div>
+      <p><b>Input 2 Activates your Current Selection</b></p>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <button onclick="inputPrompt('input2')" class="btn btn-outline-secondary" type="button">Input 2</button>
         </div>
-        <div class="form-group">
-          <label>Option 3</label>
-          <input type="Text" class="form-control" id="lastName" />
-        </div>
-        <div class="form-group">
-          <label for="pref">Drop Down:</label>
-          <select class="form-control" id="pref">
-            <option></option>
-            <option>Skype</option>
-            <option>Phone Number</option>
-          </select>
-        </div> 
-        <div class="checkbox" style="padding-bottom: 5px;">
-          <label><input type="checkbox" value="true" id="fav">Check Box<label>
-        </div>
+        <input id="input2" disabled type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+      </div>
+      <P>These options allow you to define which buttons or keys control the application. <br><br>  Input 
+        options include all keys on the keyboard as well as buttons on 
+        most adaptive technology such as buttons, gamepads, and puff/sip devices. <br><br> 
+      To define input options just click the button of the input you are modifying and 
+      press the key or button you wish to assign.
+      </P>
         <div id="submit">
-        <button type="submit" class="btn btn-primary">
+        <button onclick="writeIni()" type="submit" class="btn btn-primary">
           Submit
         </button>
         </div>
-      </form>
       </div>
     </div>
   </body>
@@ -63,4 +60,4 @@
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
   crossorigin="anonymous"
 ></script>
-<script src="contact_html.js"></script>
+<script src="preferences.js"></script>

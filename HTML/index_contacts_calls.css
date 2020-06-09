@@ -7,24 +7,28 @@ body {
   background-color: lightblue;
   color: black !important;
   font-size: x-large;
+  width: 30vw;
+  min-width: 15rem;
+  min-height: 30rem;
+  height: 40vh;
 }
 
 #weather {
   float: left;
-  margin-left: 10px;
+  margin-left: 2vw;
   margin-bottom: 10px;
 }
 
 #dateTime {
   float: left;
   padding-bottom: 35px;
-  margin-left: 10px;
+  margin-left: 2vw;
   margin-bottom: 10px;
 }
 
 #favorites {
   float: left;
-  margin-left: 10px;
+  margin-left: 2vw;
   margin-bottom: 10px;
 }
 
@@ -81,7 +85,8 @@ button:focus {
 }
 
 .list-group {
-  margin: 10px;
+  margin-right: 1.5vw;
+  margin-left: 2vw;
   border-color: black !important;
   border-width: 3px !important;
 }

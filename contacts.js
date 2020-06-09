@@ -1,10 +1,11 @@
 const electron = require("electron");
 const { app, BrowserWindow, Menu, ipcMain } = electron;
+const path = require("path");
 
 let knex = require("knex")({
   client: "sqlite3",
   connection: {
-    filename: "./main.db",
+    filename: path.join(__dirname, "main.db"),
   },
   useNullAsDefault: true,
 });
