@@ -1,8 +1,10 @@
 ; Purpose of this script is to always run and modify controls based on which screens are open. 
-#SingleInstance, Force
-#NoTrayIcon
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
+DetectHiddenWindows, On
+SetTitleMatchMode, 2 
+#SingleInstance, Force
+#NoTrayIcon
 
 ; Maps to specific INI file to set what the user wants to use as their input device/method
 IniRead, input1 , Input_Mapping.ini, Input, Input1

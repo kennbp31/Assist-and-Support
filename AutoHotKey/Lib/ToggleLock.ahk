@@ -1,5 +1,6 @@
 ;*************************************** Functions *************************************
-
+#SingleInstance, Force
+#NoTrayIcon
 ; Locks/Unlocks keystrokes and mouse clicks.
 ToggleLock(cmd)
 {

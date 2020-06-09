@@ -1,6 +1,5 @@
 const fs = require("fs");
 const ini = require("ini");
-const ahkExecScripts = require("../AutoHotKey/AHK_calls/ahkExecScripts.js");
 const path = require("path");
 
 // Load current hotkey values
@@ -32,8 +31,6 @@ function writeIni() {
       ini.stringify(config, { section: "" })
     );
 
-    // Start the main input AHK script.
-    ahkExecScripts.ahkRunScript("main");
     // Close the form
     window.close();
   }

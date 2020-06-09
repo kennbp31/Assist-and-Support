@@ -106,3 +106,9 @@ button:focus {
   color: black !important;
   background-color: yellow !important;
 }
+
+#bindingsDisclaimer {
+  color: red;
+  font-size: x-small;
+  font-style: italic;
+}

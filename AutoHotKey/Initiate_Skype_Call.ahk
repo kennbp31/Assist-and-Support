@@ -1,12 +1,15 @@
-﻿#SingleInstance, Force
+﻿; Purpose of this script is to always run and modify controls based on which screens are open. 
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
-
+DetectHiddenWindows, On
+SetTitleMatchMode, 2 
+#SingleInstance, Force
+#NoTrayIcon
 ToggleLock(1)
 
-Sleep, 2000
+WinWaitActive, Skype,, 5000
 
-WinMaximize, Skype
+Sleep, 2000
 
 Sleep, 500
 
@@ -35,6 +38,8 @@ Send {Esc}
 Sleep, 500
 
 Send, {Esc}
+
+WinMaximize, Skype
 
 ToggleLock(0)
 

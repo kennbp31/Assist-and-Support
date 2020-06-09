@@ -4,6 +4,7 @@ const path = require("path");
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 const fs = require("fs");
 const ini = require("ini");
+const ahkExecScripts = require("./AutoHotKey/AHK_calls/ahkExecScripts.js");
 
 let addWindow;
 
@@ -37,7 +38,8 @@ var createMainWindow = {
     });
 
     // Quit app on close
-    mainWindow.on("closed", function () {
+    mainWindow.on("closed", async function () {
+      let promise = await ahkExecScripts.ahkRunScript("exit");
       app.quit();
     });
 
@@ -141,7 +143,7 @@ const mainMenuTemplate = [
       {
         // route to contacts
         label: "Add/Edit Contacts",
-        accelerator: process.platform == "darwin" ? "Command+W" : "Ctrl+W",
+        accelerator: process.platform == "darwin" ? "Command+E" : "Ctrl+E",
         click() {
           console.log("Contacts Clicked");
           mainWindow.loadURL(
@@ -168,7 +170,7 @@ const mainMenuTemplate = [
       },
       {
         label: "Reset Welcome Text",
-        accelerator: process.platform == "darwin" ? "Command+R" : "Ctrl+R",
+        accelerator: process.platform == "darwin" ? "Command+W" : "Ctrl+W",
         click() {
           // Ensure preferences is not opened yet
           console.log("Log - Reset Welcome Clicked");
