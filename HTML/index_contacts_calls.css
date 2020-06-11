@@ -40,6 +40,10 @@ body {
 
   min-height: 100%; /* real browsers */
 }
+.clrButton {
+  background-color: red;
+  color: white;
+}
 
 footer {
   position: absolute;
@@ -58,6 +62,12 @@ main {
 }
 
 a {
+  color: black !important;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.callContacts {
   color: black !important;
   font-size: 30px;
   font-weight: 500;

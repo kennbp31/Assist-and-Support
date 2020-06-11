@@ -22,7 +22,7 @@ var ahkExecScripts = {
         console.log(`stderr: ${stderr}`);
         return;
       }
-      console.log(`stdout: ${stdout}`);
+      console.log("AHK File Executed: ", this.ahkFileLibrary[callType]);
     });
   },
 };

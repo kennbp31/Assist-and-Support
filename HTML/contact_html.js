@@ -1,7 +1,8 @@
 // These functions handle most of the HTML population for contact editing and calling.
 const electron = require("electron");
 const { ipcRenderer } = electron;
-const ahkExecScripts = require("../AutoHotKey/AHK_calls/ahkExecScripts.js");
+window.$ = window.jQuery = require("jquery");
+window.Bootstrap = require("bootstrap");
 
 // Send the load contacts message to main
 function callLoadContacts() {
@@ -9,15 +10,14 @@ function callLoadContacts() {
   ipcRenderer.send("contacts:call");
 }
 
-// Catches the query results of contacts. Then determines which page is loaded and calls the appropriate contact load function.
+// Catches the query results of contacts. Then determines which page is loaded and calls the
+// appropriate contact load function.
 ipcRenderer.on("contacts:load", function (e, db_rows) {
-  var rows = db_rows;
+  const rows = db_rows;
   if (document.querySelector("HTML").id === "contact.html") {
     loadContactEditList(rows);
-  } else if (document.querySelector("HTML").id === "call_list.html") {
+  } else {
     loadCallList(rows);
-  } else if (document.querySelector("HTML").id === "index.html") {
-    loadFavList(rows);
   }
 });
 
@@ -48,50 +48,47 @@ function loadContactEditList(rows) {
   }
 }
 
-// Populates the call list. Intentionally simple, users may have cognitive or motor disabilities.
-function loadCallList(rows) {
-  let callList = document.getElementById("callList");
-  for (row of rows) {
-    let contactInfo = callerID(row);
-    console.log("Log - Adding contact to Call List");
-    let nextContact = document.createElement("a");
-    nextContact.innerHTML = row.first_name + " " + row.last_name;
-    nextContact.className =
-      "list-group-item list-group-item-info list-group-item-action";
-    nextContact.href = "skype:" + contactInfo[0] + "?call&amp;video=true";
-    nextContact.onclick = () => {
-      ahkExecScripts.ahkRunScript(contactInfo[1]);
-    };
-    callList.appendChild(nextContact);
-  }
-}
-
-// Populates the Favorites Contact list on the home screen.
+// Populates the Contact list on the home screen and Skype Auto Call List.
 // Intentionally simple, users may have cognitive or motor disabilities.
-function loadFavList(rows) {
-  let callList = document.getElementById("callList");
+function loadCallList(rows, empty) {
   let count = "0";
+  let callList = document.getElementById("callList");
+  callList.innerHTML = "";
   for (row of rows) {
     let contactInfo = callerID(row);
     console.log("Log - Favorite T/F", row.fav);
-    if (row.fav === "1") {
+    if (
+      row.fav === "1" ||
+      document.querySelector("HTML").id === "call_list.html"
+    ) {
       console.log("Log - Adding contact to Call List");
-      let nextContact = document.createElement("a");
+      let nextContact = document.createElement("button");
+
       nextContact.innerHTML = row.first_name + " " + row.last_name;
       nextContact.className =
-        "list-group-item list-group-item-info list-group-item-action";
-      nextContact.href = "skype:" + contactInfo[0] + "?call&amp;video=true";
-      nextContact.onclick = () => {
-        ahkExecScripts.ahkRunScript(contactInfo[1]);
-      };
+        "list-group-item list-group-item-info list-group-item-action callContacts";
+      // Empty signifies that the call list will not have any clickable events.
+      // This is to prevent user from starting multiple calls on accident.
+      if (empty !== true) {
+        nextContact.onclick = () => {
+          loadCallList(rows, true);
+          stopClicks(rows, window.location, contactInfo);
+          ipcRenderer.send("run:ahkScript", contactInfo[1]);
+        };
+      }
       callList.appendChild(nextContact);
       count++;
     }
+
+    // If there are no favorites selected, this container is hidden
+    if (count === "0" && document.querySelector("HTML").id === "index.html") {
+      document.getElementById("hideFavorites").innerHTML = "";
+    }
   }
-  // If there are no favorites selected, this container is hidden
-  if (count === "0") {
-    document.getElementById("hideFavorites").innerHTML = "";
-  }
+}
+
+function launchSkype(window, contactInfo, promise) {
+  window.href = "skype:" + contactInfo[0] + "?call&amp;video=true";
 }
 
 // Call to main to open a new window to edit the contact record
@@ -128,8 +125,10 @@ ipcRenderer.on("contact:loadEdit", function (e, rows) {
 });
 
 //Submits contact update/add form to main process. Will update existing record, or create a new record.
-const form = document.querySelector("form");
-form.addEventListener("submit", submitForm);
+if (document.querySelector("HTML").id === "contactedit.html") {
+  const form = document.querySelector("form");
+  form.addEventListener("submit", submitForm);
+}
 
 function submitForm() {
   console.log("Log - Form Submit Clicked");
@@ -164,6 +163,31 @@ function deleteContact() {
     ipcRenderer.send("contact:delete", id);
   } else {
     return 0;
+  }
+}
+
+// Temporarily Disable all Click Events, after a button is used for 5 seconds.
+// This is done by reloading the contact list without onclick events or Href
+function stopClicks(rows, window, contactInfo) {
+  var timesRun = 0;
+
+  let clickInterval = setInterval(() => {
+    clickCount();
+  }, 1000);
+
+  // Skype is called late to ensure list of links is disabled preventing errors with multiple calls.
+  launchSkype(window, contactInfo);
+
+  function clickCount() {
+    if (timesRun === 5) {
+      console.log("Log - Clicks On");
+      clearInterval(clickInterval);
+      loadCallList(rows, false);
+    } else {
+      console.log("Log - Clicks OFF");
+      console.log("Log - Times Ran:", timesRun);
+      timesRun++;
+    }
   }
 }
 

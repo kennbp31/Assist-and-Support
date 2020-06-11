@@ -21,9 +21,9 @@ app.on("ready", async function () {
   mainWindow.webContents.on("dom-ready", () => {
     async function weatherNode(mainWindow) {
       let ip = await weather.ipAddress.ipAdd();
-      let location = await weather.geoLocation.geoLocation(await ip);
+      let location = await weather.geoLocation.geoLocation(ip);
       let currentWeather = await weather.currWeather.currWeather(
-        await location,
+        location,
         mainWindow
       );
     }
@@ -33,6 +33,12 @@ app.on("ready", async function () {
     // Start the main input AHK script.
     ahkExecScripts.ahkRunScript("main");
   });
+});
+
+// Catch refresh main AHK call
+ipcMain.on("run:ahkScript", function (err, script) {
+  console.log("Log - Run AHK Received to Main:", script);
+  ahkExecScripts.ahkRunScript(script);
 });
 
 // Catch contact edit request

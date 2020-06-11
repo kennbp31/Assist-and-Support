@@ -1,6 +1,8 @@
 const fs = require("fs");
 const ini = require("ini");
 const path = require("path");
+const electron = require("electron");
+const { ipcRenderer } = electron;
 
 // Load current hotkey values
 function loadIni() {
@@ -31,7 +33,8 @@ function writeIni() {
       ini.stringify(config, { section: "" })
     );
 
-    // Close the form
+    ipcRenderer.send("run:ahkScript", "main");
+    //Close the form
     window.close();
   }
 }
@@ -67,7 +70,7 @@ function inputPrompt(inputNum) {
       }
     }
 
-    // TODO: Not working for space key... weird...
+    // Collect keyboard keys for input, needed special behavior for space...
     input.addEventListener("keydown", (e) => {
       input.value = e.key;
       if (input.value === " ") {
@@ -101,4 +104,11 @@ function disabledCheck() {
       return true;
     }
   }
+}
+
+// Set default values for the user.
+function dfInput(input) {
+  let clr = document.getElementById(input);
+  clr.value = input === "input1" ? "tab" : "enter";
+  clr.disabled = true;
 }

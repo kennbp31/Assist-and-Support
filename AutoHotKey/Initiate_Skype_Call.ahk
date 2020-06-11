@@ -7,42 +7,51 @@ SetTitleMatchMode, 2
 #NoTrayIcon
 ToggleLock(1)
 
-WinWaitActive, Skype,, 5000
+WinWaitActive, Skype, , 10
+if ErrorLevel
+{
+    ToggleLock(0)
+    return
+}
 
-Sleep, 2000
-
-Sleep, 500
-
-Send, {Ctrl Down}{Tab}{Ctrl up}
-
-Sleep, 500
-
-Send, {Tab}
-
-Sleep, 500
-
-Send, {Tab}
-
-Sleep, 500
-
-Send, {Tab}
-
-Sleep, 500
-
-Send, {Enter}
-
-Sleep, 500
-
-Send {Esc}
-
-Sleep, 500
-
-Send, {Esc}
-
-WinMaximize, Skype
-
-ToggleLock(0)
-
-ExitApp
+Else
+{
+    
+    Sleep, 5000
+    
+    Sleep, 500
+    
+    Send, {Ctrl Down}{Tab}{Ctrl up}
+    
+    Sleep, 500
+    
+    Send, {Tab}
+    
+    Sleep, 500
+    
+    Send, {Tab}
+    
+    Sleep, 500
+    
+    Send, {Tab}
+    
+    Sleep, 500
+    
+    Send, {Enter}
+    
+    Sleep, 500
+    
+    Send {Esc}
+    
+    Sleep, 500
+    
+    Send, {Esc}
+    
+    WinMaximize, Skype
+    
+    ToggleLock(0)
+    
+    ExitApp
+}
 
 #Include <ToggleLock>

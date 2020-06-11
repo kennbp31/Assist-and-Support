@@ -5,25 +5,31 @@ DetectHiddenWindows, On
 SetTitleMatchMode, 2 
 #SingleInstance, Force
 #NoTrayIcon
-
-WinWaitActive, Skype,, 5000
-
 ToggleLock(1)
 
-Sleep, 2000
+WinWaitActive, Skype, , 10
+if ErrorLevel
+{
+    ToggleLock(0)
+    return
+}
 
-WinMaximize, Skype
-
-Sleep, 1000
-
-Send, {Enter}
-
-Sleep, 1000
-
-Send, {Esc}
-
-ToggleLock(0)
-
-ExitApp
-
+Else
+{
+    Sleep, 5000
+    
+    WinMaximize, Skype
+    
+    Sleep, 1000
+    
+    Send, {Enter}
+    
+    Sleep, 1000
+    
+    Send, {Esc}
+    
+    ToggleLock(0)
+    
+    ExitApp
+}
 #Include <ToggleLock>

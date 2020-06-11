@@ -1,8 +1,6 @@
 const electron = require("electron");
 const { ipcRenderer } = electron;
 
-console.log("WTF mate?");
-
 // Load Existing Values into the Edit Screen
 ipcRenderer.on("contact:display", function (e, rows) {
   console.log("Log - Message Received, anyone there?");
