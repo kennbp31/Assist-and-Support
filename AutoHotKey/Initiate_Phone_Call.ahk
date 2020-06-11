@@ -16,7 +16,7 @@ if ErrorLevel
 
 Else
 {
-    Sleep, 5000
+    Sleep, 4000
     
     WinMaximize, Skype
     

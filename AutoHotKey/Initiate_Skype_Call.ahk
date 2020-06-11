@@ -17,9 +17,7 @@ if ErrorLevel
 Else
 {
     
-    Sleep, 5000
-    
-    Sleep, 500
+    Sleep, 4000
     
     Send, {Ctrl Down}{Tab}{Ctrl up}
     

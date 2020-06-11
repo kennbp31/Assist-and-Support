@@ -124,12 +124,7 @@ ipcRenderer.on("contact:loadEdit", function (e, rows) {
   form.appendChild(del);
 });
 
-//Submits contact update/add form to main process. Will update existing record, or create a new record.
-if (document.querySelector("HTML").id === "contactedit.html") {
-  const form = document.querySelector("form");
-  form.addEventListener("submit", submitForm);
-}
-
+// Sends the add/edit contact information to the DB on submit.
 function submitForm() {
   console.log("Log - Form Submit Clicked");
   const id = document.querySelector("form").id;
