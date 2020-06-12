@@ -13,6 +13,7 @@ Application to aid individuals with severe dissabilities. Goal is to provide an 
   Add options to hide elements of home screen<br>
  
 # V1 - TODO:
+ Configurations: Adjust delay on skype opening, allow users to disable hotkeys, add information regarding application logic. (Gets confusing when your PC does stuff you didn't think it would do on its own...)
  Adjust AHK to reopen app if it closes or crashes.<br>
  
 # V1.1 and beyond - TODO:
