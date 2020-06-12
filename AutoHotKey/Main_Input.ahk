@@ -7,8 +7,8 @@ SetTitleMatchMode, 2
 #NoTrayIcon
 
 ; Maps to specific INI file to set what the user wants to use as their input device/method
-IniRead, input1 , Input_Mapping.ini, Input, Input1
-IniRead, input2 , Input_Mapping.ini, Input, Input2
+IniRead, input1 , %A_ScriptDir%\..\config.ini, Input, Input1
+IniRead, input2 , %A_ScriptDir%\..\config.ini, Input, Input2
 
 ; input1 = joy1 ;< Overide to set an input method in the script
 ; input2 = joy2 ;< Overide to set an input method in the script

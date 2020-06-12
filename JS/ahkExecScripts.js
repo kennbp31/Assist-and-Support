@@ -12,7 +12,10 @@ var ahkExecScripts = {
 
   ahkRunScript: function (callType) {
     console.log(callType);
-    let pathname = path.join(__dirname, "../" + this.ahkFileLibrary[callType]);
+    let pathname = path.join(
+      __dirname,
+      "../AutoHotKey/" + this.ahkFileLibrary[callType]
+    );
     exec(pathname, (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);

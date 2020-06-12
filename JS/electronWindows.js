@@ -4,7 +4,7 @@ const path = require("path");
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 const fs = require("fs");
 const ini = require("ini");
-const ahkExecScripts = require("./AutoHotKey/AHK_calls/ahkExecScripts.js");
+const ahkExecScripts = require("./ahkExecScripts.js");
 
 let addWindow;
 
@@ -25,7 +25,7 @@ var createMainWindow = {
     // Load HTML into window
     mainWindow.loadURL(
       url.format({
-        pathname: path.join(__dirname, "HTML/index.html"),
+        pathname: path.join(__dirname, "../HTML/index.html"),
         protocol: "file",
         slashes: true,
       })
@@ -102,7 +102,7 @@ const mainMenuTemplate = [
           console.log("Home Clicked");
           mainWindow.loadURL(
             url.format({
-              pathname: path.join(__dirname, "HTML/index.html"),
+              pathname: path.join(__dirname, "../HTML/index.html"),
               protocol: "file",
               slashes: true,
             })
@@ -118,7 +118,7 @@ const mainMenuTemplate = [
           console.log("Log - Auto Skype Call List Window Loading");
           mainWindow.loadURL(
             url.format({
-              pathname: path.join(__dirname, "HTML/call_list.html"),
+              pathname: path.join(__dirname, "../HTML/call_list.html"),
               protocol: "file",
               slashes: true,
             })
@@ -148,7 +148,7 @@ const mainMenuTemplate = [
           console.log("Contacts Clicked");
           mainWindow.loadURL(
             url.format({
-              pathname: path.join(__dirname, "HTML/contact.html"),
+              pathname: path.join(__dirname, "../HTML/contact.html"),
               protocol: "file",
               slashes: true,
             })
@@ -164,7 +164,7 @@ const mainMenuTemplate = [
           console.log("Log - Preferences Clicked");
           newElectronWindow.createAddWindow(
             "Preferences",
-            "HTML/preferences.html"
+            "../HTML/preferences.html"
           );
         },
       },
@@ -176,16 +176,13 @@ const mainMenuTemplate = [
           console.log("Log - Reset Welcome Clicked");
           (() => {
             var config = ini.parse(
-              fs.readFileSync(
-                path.join(__dirname, "/AutoHotKey/Input_Mapping.ini"),
-                "utf-8"
-              )
+              fs.readFileSync(path.join(__dirname, "../config.ini"), "utf-8")
             );
             console.log("Log-Ini:", config);
             config.Welcome.Display = true;
 
             fs.writeFileSync(
-              path.join(__dirname, "/AutoHotKey/Input_Mapping.ini"),
+              path.join(__dirname, "../config.ini"),
               ini.stringify(config, { section: "" })
             );
           })();

@@ -1,16 +1,13 @@
+const electron = require("electron");
+const { ipcRenderer } = electron;
 const fs = require("fs");
 const ini = require("ini");
 const path = require("path");
-const electron = require("electron");
-const { ipcRenderer } = electron;
 
 // Load current hotkey values
 function loadIni() {
   var config = ini.parse(
-    fs.readFileSync(
-      path.join(__dirname, "../AutoHotKey/Input_Mapping.ini"),
-      "utf-8"
-    )
+    fs.readFileSync(path.join(__dirname, "../config.ini"), "utf-8")
   );
   document.getElementById("input1").value = config.Input.Input1;
   document.getElementById("input2").value = config.Input.Input2;
@@ -20,16 +17,13 @@ function loadIni() {
 function writeIni() {
   if (checkDups() !== true) {
     var config = ini.parse(
-      fs.readFileSync(
-        path.join(__dirname, "../AutoHotKey/Input_Mapping.ini"),
-        "utf-8"
-      )
+      fs.readFileSync(path.join(__dirname, "../config.ini"), "utf-8")
     );
     config.Input.Input1 = document.getElementById("input1").value;
     config.Input.Input2 = document.getElementById("input2").value;
 
     fs.writeFileSync(
-      path.join(__dirname, "../AutoHotKey/Input_Mapping.ini"),
+      path.join(__dirname, "../config.ini"),
       ini.stringify(config, { section: "" })
     );
 

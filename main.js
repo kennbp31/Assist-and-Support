@@ -1,8 +1,8 @@
 const electron = require("electron");
-const contacts = require("./contacts.js");
-const electronWindows = require("./electronWindows.js");
-const weather = require("./APIs/weather.js");
-const ahkExecScripts = require("./AutoHotKey/AHK_calls/ahkExecScripts.js");
+const contacts = require("./JS/contacts.js");
+const electronWindows = require("./JS/electronWindows.js");
+const weather = require("./JS/weather.js");
+const ahkExecScripts = require("./JS/ahkExecScripts.js");
 
 // Readline lets us tap into the process events
 //const readline = require("readline");
@@ -51,7 +51,7 @@ ipcMain.on("contact:edit", function (err, id) {
     if (addWindow === undefined) {
       addWindow = electronWindows.newElectronWindow.createAddWindow(
         "Assist_And_Support",
-        "HTML/contactedit.html"
+        "../HTML/contactedit.html"
       );
       addWindow.on("close", function () {
         addWindow = undefined;
@@ -71,7 +71,7 @@ ipcMain.on("contact:edit", function (err, id) {
     if (addWindow === undefined) {
       addWindow = electronWindows.newElectronWindow.createAddWindow(
         "Add/Edit Contact",
-        "HTML/contactedit.html"
+        "../HTML/contactedit.html"
       );
       addWindow.on("close", function () {
         addWindow = undefined;

@@ -1,8 +1,6 @@
 // These functions handle most of the HTML population for contact editing and calling.
 const electron = require("electron");
 const { ipcRenderer } = electron;
-window.$ = window.jQuery = require("jquery");
-window.Bootstrap = require("bootstrap");
 
 // Send the load contacts message to main
 function callLoadContacts() {
@@ -88,7 +86,7 @@ function loadCallList(rows, empty) {
 }
 
 function launchSkype(window, contactInfo, promise) {
-  window.href = "skype:" + contactInfo[0] + "?call&amp;video=true";
+  window.href = "skype:" + contactInfo[0] + "?call";
 }
 
 // Call to main to open a new window to edit the contact record
