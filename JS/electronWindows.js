@@ -39,10 +39,15 @@ var createMainWindow = {
     });
 
     // Quit app on close
-    mainWindow.on("closed", async function () {
-      let promise = await ahkExecScripts.ahkRunScript("exit");
-      app.quit();
+    mainWindow.on("closed", () => {
+      closeAHK(app.quit());
     });
+
+    // callback function to ensure ahk is killed prior to app closing.
+    function closeAHK(callback) {
+      ahkExecScripts.ahkRunScript("exit");
+      callback;
+    }
 
     // Build Menu from template
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
