@@ -1,25 +1,20 @@
 const fs = require("fs");
 const ini = require("ini");
 const path = require("path");
+const { load, write } = require("../JS/iniConnect.js");
 
 function loadIni() {
-  var config = ini.parse(
-    fs.readFileSync(path.join(__dirname, "../config.ini"), "utf-8")
-  );
+  let config = load.loadIni("config.ini");
+  //load.loadIni("config.ini");
   if (config.Welcome.Display === false)
     document.getElementById("welcome").innerHTML = "";
 }
 
 function welcomeOff() {
-  var config = ini.parse(
-    fs.readFileSync(path.join(__dirname, "../config.ini"), "utf-8")
-  );
+  let config = load.loadIni("config.ini");
   console.log("Log-Ini:", config);
   config.Welcome.Display = false;
 
-  fs.writeFileSync(
-    path.join(__dirname, "../config.ini"),
-    ini.stringify(config, { section: "" })
-  );
+  write.writeIni("config.ini", config);
   loadIni();
 }

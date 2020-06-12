@@ -5,6 +5,7 @@ const { app, BrowserWindow, Menu, ipcMain } = electron;
 const fs = require("fs");
 const ini = require("ini");
 const ahkExecScripts = require("./ahkExecScripts.js");
+const { load, write } = require("../JS/iniConnect.js");
 
 let addWindow;
 
@@ -175,16 +176,11 @@ const mainMenuTemplate = [
           // Ensure preferences is not opened yet
           console.log("Log - Reset Welcome Clicked");
           (() => {
-            var config = ini.parse(
-              fs.readFileSync(path.join(__dirname, "../config.ini"), "utf-8")
-            );
+            let config = load.loadIni("config.ini");
             console.log("Log-Ini:", config);
             config.Welcome.Display = true;
 
-            fs.writeFileSync(
-              path.join(__dirname, "../config.ini"),
-              ini.stringify(config, { section: "" })
-            );
+            write.writeIni("config.ini", config);
           })();
         },
       },

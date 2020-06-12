@@ -3,12 +3,12 @@ const { ipcRenderer } = electron;
 const fs = require("fs");
 const ini = require("ini");
 const path = require("path");
+const { load, write } = require("../JS/iniConnect.js");
 
 // Load current hotkey values
 function loadIni() {
-  var config = ini.parse(
-    fs.readFileSync(path.join(__dirname, "../config.ini"), "utf-8")
-  );
+  let config = load.loadIni("config.ini");
+
   document.getElementById("input1").value = config.Input.Input1;
   document.getElementById("input2").value = config.Input.Input2;
 }
@@ -16,16 +16,12 @@ function loadIni() {
 // Update config file with new hotkeys, restart AHK scripts, close window
 function writeIni() {
   if (checkDups() !== true) {
-    var config = ini.parse(
-      fs.readFileSync(path.join(__dirname, "../config.ini"), "utf-8")
-    );
+    let config = load.loadIni("config.ini");
+
     config.Input.Input1 = document.getElementById("input1").value;
     config.Input.Input2 = document.getElementById("input2").value;
 
-    fs.writeFileSync(
-      path.join(__dirname, "../config.ini"),
-      ini.stringify(config, { section: "" })
-    );
+    write.writeIni("config.ini", config);
 
     ipcRenderer.send("run:ahkScript", "main");
     //Close the form
