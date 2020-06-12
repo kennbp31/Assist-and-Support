@@ -1,5 +1,6 @@
 const { exec } = require("child_process");
 const path = require("path");
+const { load } = require("./iniConnect.js");
 
 var ahkExecScripts = {
   ahkFileLibrary: {
@@ -11,7 +12,11 @@ var ahkExecScripts = {
   },
 
   ahkRunScript: function (callType) {
+    let config = load.loadIni("config.ini");
     console.log(callType);
+    if (config.Input.Disabled === true && callType === "main") {
+      callType = "exit";
+    }
     let pathname = path.join(
       __dirname,
       "../AutoHotKey/" + this.ahkFileLibrary[callType]

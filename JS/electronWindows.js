@@ -181,11 +181,13 @@ const mainMenuTemplate = [
           // Ensure preferences is not opened yet
           console.log("Log - Reset Welcome Clicked");
           (() => {
+            // Load config with welcome text preferences.
             let config = load.loadIni("config.ini");
             console.log("Log-Ini:", config);
             config.Welcome.Display = true;
-
             write.writeIni("config.ini", config);
+            // Refresh the window to show welcome text
+            mainWindow.reload();
           })();
         },
       },

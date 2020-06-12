@@ -6,11 +6,12 @@ const path = require("path");
 const { load, write } = require("../JS/iniConnect.js");
 
 // Load current hotkey values
-function loadIni() {
+async function loadIni() {
   let config = load.loadIni("config.ini");
 
   document.getElementById("input1").value = config.Input.Input1;
   document.getElementById("input2").value = config.Input.Input2;
+  document.getElementById("disableInputCheck").checked = config.Input.Disabled;
 }
 
 // Update config file with new hotkeys, restart AHK scripts, close window
@@ -20,6 +21,9 @@ function writeIni() {
 
     config.Input.Input1 = document.getElementById("input1").value;
     config.Input.Input2 = document.getElementById("input2").value;
+    config.Input.Disabled = document.getElementById(
+      "disableInputCheck"
+    ).checked;
 
     write.writeIni("config.ini", config);
 
@@ -101,4 +105,14 @@ function dfInput(input) {
   let clr = document.getElementById(input);
   clr.value = input === "input1" ? "tab" : "enter";
   clr.disabled = true;
+}
+
+function disableInput() {
+  let disableCheckBox = document.getElementById("disableInputCheck");
+  let inputOptions = document.getElementById("inputOptions");
+  if (disableCheckBox.checked || disableCheckBox.checked === true) {
+    inputOptions.style = "pointer-events: none; opacity: 0.4;";
+  } else {
+    inputOptions.style = "";
+  }
 }
