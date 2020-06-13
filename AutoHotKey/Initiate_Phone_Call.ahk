@@ -7,7 +7,12 @@ SetTitleMatchMode, 2
 #NoTrayIcon
 ToggleLock(1)
 
-WinWaitActive, Skype, , 10
+; Maps to specific INI file to set what the user wants to use as their input device/method
+IniRead, Delay , %A_ScriptDir%\..\config.ini, Skype, Delay
+SleepTime := Delay * 1000
+WaitTime := Delay * 2
+
+WinWaitActive, Skype, , %WaitTime%
 if ErrorLevel
 {
     ToggleLock(0)
@@ -16,7 +21,7 @@ if ErrorLevel
 
 Else
 {
-    Sleep, 4000
+    Sleep, %SleepTime%
     
     WinMaximize, Skype
     

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preferences</title>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <link href="./CSS/inputConfig.css" rel="stylesheet" />
+    <script src="./JS/inputConfig.js"></script>
+  </head>
+  <body onload="loadIni(), disableInput()">
+    <main>
+      <div class="checkbox">
+        <label
+          ><input
+            id="disableInputCheck"
+            type="checkbox"
+            value="true"
+            onclick="disableInput()"
+          />
+          Disable Input Assignments
+        </label>
+      </div>
+      <p id="bindingsDisclaimer">
+        Warning: Disabling Inputs will prevent you from one click auto-ending a
+        call and returning to the application.
+      </p>
+      <div id="inputOptions">
+        <p><b>Input 1 Moves the Cursor Forward</b></p>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button
+              onclick="inputPrompt('input1')"
+              class="btn btn-outline-secondary"
+              type="button"
+            >
+              Set Input 1
+            </button>
+          </div>
+          <input
+            id="input1"
+            disabled
+            type="text"
+            class="form-control"
+            placeholder=""
+            aria-label=""
+            aria-describedby="basic-addon1"
+          />
+          <button
+            onclick="dfInput('input1')"
+            class="btn btn-outline-secondary clrButton"
+            type="button"
+          >
+            Default
+          </button>
+        </div>
+        <p><b>Input 2 Activates your Current Selection</b></p>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button
+              onclick="inputPrompt('input2')"
+              class="btn btn-outline-secondary"
+              type="button"
+            >
+              Set Input 2
+            </button>
+          </div>
+          <input
+            id="input2"
+            disabled
+            type="text"
+            class="form-control"
+            placeholder=""
+            aria-label=""
+            aria-describedby="basic-addon1"
+          />
+          <button
+            onclick="dfInput('input2')"
+            class="btn btn-outline-secondary clrButton"
+            type="button"
+          >
+            Default
+          </button>
+        </div>
+      </div>
+      <p>
+        These options allow you to define which buttons or keys control the
+        application. <br /><br />
+        Input options include all keys on the keyboard as well as buttons on
+        most adaptive technology such as buttons, gamepads, and puff/sip
+        devices. <br /><br />
+        To define input options just click the button of the input you are
+        modifying and press the key or button you wish to assign.
+      </p>
+      <div id="submit">
+        <button
+          onclick="writeIni()"
+          type="submit"
+          class="btn btn-primary"
+          id="submit"
+        >
+          Submit
+        </button>
+      </div>
+    </main>
+    <footer id="bindingsDisclaimer">
+      <p>
+        *this screen does not respond to the custom key bindings set above. This
+        is to ensure that current bindings do not interere with setting your new
+        bindings.
+      </p>
+    </footer>
+  </body>
+</html>

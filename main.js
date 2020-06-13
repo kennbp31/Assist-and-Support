@@ -19,6 +19,7 @@ app.on("ready", async function () {
 
   // populate Index.html with the current weather.
   mainWindow.webContents.on("dom-ready", () => {
+    mainWindow.setFullScreen(config.General.Exclusive);
     async function weatherNode(mainWindow) {
       let ip = await weather.ipAddress.ipAdd();
       let location = await weather.geoLocation.geoLocation(ip);

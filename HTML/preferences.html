@@ -1,141 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Preferences</title>
-    <!-- Compiled and minified CSS -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
     />
-
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
     <link href="./CSS/preferences.css" rel="stylesheet" />
-    <script src="./JS/preferences.js"></script>
   </head>
-  <body onload="loadIni(), disableInput()">
+  <body onload="loadIni()">
     <header>
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Input</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Skype Logic</a>
-        </li>
-      </ul>
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a
+            class="nav-item nav-link active"
+            id="nav-general-tab"
+            data-toggle="tab"
+            href="#nav-general"
+            role="tab"
+            aria-controls="nav-general"
+            aria-selected="true"
+            >General</a
+          >
+          <a
+            class="nav-item nav-link"
+            id="nav-skype-tab"
+            data-toggle="tab"
+            href="#nav-skype"
+            role="tab"
+            aria-controls="nav-skype"
+            aria-selected="false"
+            >Skype</a
+          >
+        </div>
+      </nav>
     </header>
-    <main>
-      <div class="checkbox">
-        <label
-          ><input
-            id="disableInputCheck"
-            type="checkbox"
-            value="true"
-            onclick="disableInput()"
-          />
-          Disable Input Assignments
-        </label>
-      </div>
-      <p id="bindingsDisclaimer">
-        Warning: Disabling Inputs will prevent you from one click auto-ending a
-        call and returning to the application.
-      </p>
-      <div id="inputOptions">
-        <p><b>Input 1 Moves the Cursor Forward</b></p>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <button
-              onclick="inputPrompt('input1')"
-              class="btn btn-outline-secondary"
-              type="button"
-            >
-              Set Input 1
-            </button>
+    <main style="padding-left: 10px; padding-right: 10px;">
+      <div class="tab-content" id="nav-tabContent">
+        <div
+          class="tab-pane fade"
+          id="nav-skype"
+          role="tabpanel"
+          aria-labelledby="nav-skype-tab"
+        >
+          <h3>Skype Call Delay</h3>
+          <hr />
+          <div class="slidecontainer">
+            <p>
+              Less Delay
+              <span style="position: absolute; right: 3%;">
+                More Delay
+              </span>
+            </p>
+            <input
+              oninput="slideVal()"
+              type="range"
+              min="1"
+              max="30"
+              value=""
+              class="slider"
+              id="myRange"
+            />
           </div>
-          <input
-            id="input1"
-            disabled
-            type="text"
-            class="form-control"
-            placeholder=""
-            aria-label=""
-            aria-describedby="basic-addon1"
-          />
-          <button
-            onclick="dfInput('input1')"
-            class="btn btn-outline-secondary clrButton"
-            type="button"
-          >
-            Default
-          </button>
-        </div>
-        <p><b>Input 2 Activates your Current Selection</b></p>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <button
-              onclick="inputPrompt('input2')"
-              class="btn btn-outline-secondary"
-              type="button"
-            >
-              Set Input 2
-            </button>
+          <br />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="sliderSettings">
+                <button
+                  onclick="dfSec()"
+                  class="btn btn-outline-secondary clrButton"
+                  type="button"
+                >
+                  Reset to Default (Secs)
+                </button>
+                <input
+                  id="inputDelay"
+                  disabled
+                  type="text"
+                  placeholder=""
+                  aria-label=""
+                  aria-describedby="basic-addon1"
+                  class="slideSeconds"
+                />
+              </div>
+            </div>
           </div>
-          <input
-            id="input2"
-            disabled
-            type="text"
-            class="form-control"
-            placeholder=""
-            aria-label=""
-            aria-describedby="basic-addon1"
-          />
-          <button
-            onclick="dfInput('input2')"
-            class="btn btn-outline-secondary clrButton"
-            type="button"
-          >
-            Default
-          </button>
+          <p align="justify">
+            This setting determines how long the computer pauses to wait for
+            Skype to load. Typically if you have a newer/fast computer you will
+            want to set the delay low. If you have an older computer it is
+            recommend to increase the delay. An increased delay will give your
+            computer time to finish loading Skype before starting the call. If
+            there is not enough load time for your computer, Skype calls WILL
+            NOT WORK!.
+          </p>
+        </div>
+        <div
+          class="tab-pane fade show active"
+          id="nav-general"
+          role="tabpanel"
+          aria-labelledby="nav-general-tab"
+        >
+          <h3>General Application Settings</h3>
+          <hr />
+          <div class="checkbox">
+            <label
+              ><input id="exclusive" type="checkbox" />
+              Run the application in Exclusive Full Screen Mode.
+            </label>
+            <hr />
+            <label disabled style="opacity: 0.4;">
+              <input id="restart" type="checkbox" disabled />
+              Restart the Application Automatically. (Useful if the application
+              closes unexpectedly)
+            </label>
+            <hr />
+          </div>
+          <p align="justify">
+            These settings determine how you would like the application to
+            display and operate. Use these settings to make the application more
+            immersive and stable for individuals that will be using this
+            application daily/exclusively.
+          </p>
         </div>
       </div>
-      <p>
-        These options allow you to define which buttons or keys control the
-        application. <br /><br />
-        Input options include all keys on the keyboard as well as buttons on
-        most adaptive technology such as buttons, gamepads, and puff/sip
-        devices. <br /><br />
-        To define input options just click the button of the input you are
-        modifying and press the key or button you wish to assign.
-      </p>
+    </main>
+    <footer>
       <div id="submit">
-        <button onclick="writeIni()" type="submit" class="btn btn-primary">
+        <button
+          onclick="writeIni()"
+          type="submit"
+          class="btn btn-primary"
+          id="submit"
+        >
           Submit
         </button>
       </div>
-    </main>
-    <footer id="bindingsDisclaimer">
-      <p>
-        *this screen does not respond to the custom key bindings set above. This
-        is to ensure that current bindings do not interere with setting your new
-        bindings.
+      <p id="bindingsDisclaimer">
+        <br />
+        *this screen does not respond to the custom key bindings set in Options
+        > Input Configuration. This is to ensure that current bindings do not
+        interere with setting your new bindings.
       </p>
     </footer>
   </body>
+  <script src="./JS/preferences.js"></script>
 </html>

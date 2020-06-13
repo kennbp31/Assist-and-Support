@@ -23,7 +23,6 @@ return
 ; This means there is a separate set of scripts for each mapped input
 ; This will get complicated of ther user requires more than one input...
 
-; TODO: Getting odd behavior when the input IS an existing hotkey
 input1:
     input1(input1)
 return

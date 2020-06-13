@@ -6,9 +6,15 @@ SetTitleMatchMode, 2
 #SingleInstance, Force
 #NoTrayIcon
 #Include <FindText>
+
+; Maps to specific INI file to set what the user wants to use as their input device/method
+IniRead, Delay , %A_ScriptDir%\..\config.ini, Skype, Delay
+SleepTime := Delay * 1000
+WaitTime := Delay * 2
+
 ToggleLock(1)
 
-WinWaitActive, Skype, , 10
+WinWaitActive, Skype, , %WaitTime%
 if ErrorLevel
 {
     ToggleLock(0)
@@ -18,7 +24,7 @@ if ErrorLevel
 Else
 {
     
-    Sleep, 8000
+    Sleep, %SleepTime%
     
     ; 150% 
     t1:=A_TickCount, X:=Y:=""

@@ -3,6 +3,23 @@ body {
   height: 100%;
 }
 
+.btn {
+  color: black;
+}
+
+#contain_footer {
+  position: relative; /* needed for footer positioning*/
+  margin: 0 auto; /* center, not in IE5 */
+  height: auto !important; /* real browsers */
+  height: 100%; /* IE6: treaded as min-height*/
+
+  min-height: 100%; /* real browsers */
+}
+.clrButton {
+  background-color: red;
+  color: white;
+}
+
 footer {
   position: absolute;
   bottom: 0; /* stick to bottom */
@@ -13,14 +30,6 @@ footer {
 
 main {
   padding: 1em 1em 7em; /* bottom padding for footer */
-}
-
-#contain_footer {
-  position: relative; /* needed for footer positioning*/
-  margin: 0 auto; /* center, not in IE5 */
-  height: auto !important; /* real browsers */
-  height: 100%; /* IE6: treaded as min-height*/
-  min-height: 100%; /* real browsers */
 }
 
 #submit {
@@ -68,9 +77,8 @@ button:focus {
 }
 
 .slidecontainer {
-  display: block !important;
-  position: relative !important;
-  overflow: hidden;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 #delayValue {
@@ -78,38 +86,4 @@ button:focus {
   border: solid #000 !important;
   border-width: 1px;
   margin-right: 65vw;
-}
-
-#sliderSettings {
-  display: block !important;
-  position: relative !important;
-  overflow: hidden;
-}
-
-.slideSeconds {
-  padding-top: 3px;
-  padding-bottom: 8px;
-  margin: -4px;
-  width: 59vw;
-}
-
-/* .btn {
-  font-size: 15px;
-}
-*/
-
-.clrButton {
-  background-color: red;
-  color: white;
-  border: 0px;
-  border-top-right-radius: 0px !important;
-  border-bottom-right-radius: 0px;
-  padding: 9px;
-  padding-left: 12px;
-  padding-right: 12px;
-  font-size: 15px;
-}
-
-#myRange {
-  width: 99%;
 }

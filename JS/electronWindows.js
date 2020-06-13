@@ -8,6 +8,8 @@ const ahkExecScripts = require("./ahkExecScripts.js");
 const { load, write } = require("../JS/iniConnect.js");
 
 let addWindow;
+var config = load.loadIni("config.ini");
+console.log("Log-Ini:", config);
 
 var createMainWindow = {
   // Create new window
@@ -20,7 +22,7 @@ var createMainWindow = {
     });
 
     // Load the app in fullscreen mode (Enable setFullscreen later to ensure app is the PC UI....ish)
-    // mainWindow.setFullScreen(true);
+
     mainWindow.maximize();
 
     // Load HTML into window
@@ -163,6 +165,18 @@ const mainMenuTemplate = [
       },
 
       {
+        label: "Input Configuration",
+        accelerator: process.platform == "darwin" ? "Command+I" : "Ctrl+I",
+        click() {
+          // Ensure preferences is not opened yet
+          console.log("Log - Preferences Clicked");
+          newElectronWindow.createAddWindow(
+            "Preferences",
+            "../HTML/inputConfig.html"
+          );
+        },
+      },
+      {
         label: "Preferences",
         accelerator: process.platform == "darwin" ? "Command+P" : "Ctrl+P",
         click() {
@@ -206,7 +220,7 @@ if (process.env.NODE_ENV !== "production") {
     submenu: [
       {
         label: "Toggle DevTools",
-        accelerator: process.platform == "darwin" ? "Command+I" : "Ctrl+I",
+        accelerator: process.platform == "darwin" ? "Command+D" : "Ctrl+D",
         click(item, focusedWindow) {
           focusedWindow.toggleDevTools();
         },
