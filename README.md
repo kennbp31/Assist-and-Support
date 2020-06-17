@@ -1,23 +1,24 @@
 # Assist-and-Support
 
-This application provides individuals with disabilities or any difficulty using a PC an easy to navigate user interface that automates some common PC functions.<br>
-This applications first iteration will automate making and ending skype calls, display the weather, date and time.
+This application provides individuals with disabilities or any difficulty using a PC an easy to navigate user interface that automates some common PC functions.<br> <br>
+
+This applications first iteration will automate making and ending skype calls, display the weather, date and time, interface with adaptive technology such as a sip/puff.
 
 # This is the current landing page will the user will complete most of their daily functions.
 
-[/Screenshots/main.JPG]
+![Screenshot](/Screenshots/main.JPG)
 
 # Users can setup custom input bindings for adaptive technology or other inputs using configurations.
 
-[/Screenshots/input.JPG]
+![Screenshot](/Screenshots/input.JPG)
 
 # Users also need to configure the speed of their PC to allow for proper interfacing with Skype by setting another preference.
 
-[/Screenshots/Skype_Preference.JPG]
+![Screenshot](/Screenshots/Skype_Preferences.JPG)
 
 # All contacts are stored in the app and can include phone numbers or Skype IDs.
 
-[/Screenshots/contacts.JPG]
+![Screenshot](/Screenshots/contacts.JPG)
 
 # Completed Features
 
