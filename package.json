@@ -20,12 +20,18 @@
     "sqlite3": "^4.2.0"
   },
   "devDependencies": {
+    "electron": "^9.0.3",
     "electron-builder": "^22.7.0",
     "electron-packager": "^14.2.1",
-    "electron-rebuild": "^1.11.0",
-    "electron": "^9.0.3"
+    "electron-rebuild": "^1.11.0"
   },
   "build": {
     "appId": "Assist_And_Support"
+  },
+  "electronPackagerConfig": {
+    "win32metadata": {
+      "ProductName": "Assist and Support",
+      "CompanyName": "Brendan Kenny"
+    }
   }
 }
