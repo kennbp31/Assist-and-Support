@@ -1,5 +1,7 @@
 # Assist-and-Support
 
+Release: 1.0 - [Download Link](https://drive.google.com/file/d/18tPmKqML0I4TuipRCvrncJgzX5B9I64U/view?usp=sharing)
+
 This application provides individuals with disabilities or any difficulty using a PC an easy to navigate user interface that automates some common PC functions.<br> <br>
 
 This applications first iteration will automate making and ending skype calls, display the weather, date and time, interface with adaptive technology such as a sip/puff.
