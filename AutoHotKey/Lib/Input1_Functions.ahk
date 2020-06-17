@@ -8,21 +8,19 @@ SetWorkingDir, %A_ScriptDir%
 ; Purpose of this script is to always run and modify controls based on which screens are open. 
 ; TODO: Learn how to use functions and split this bad boi up.
 input1(input){
-    ToggleLock(1)
+    
     IfWinActive, Preferences
     {
         send, {%input%}
-        ToggleLock(0)
         Return
     } 
     
     IfWinActive, Add/Edit_Contact
     {
         send, {%input%}
-        ToggleLock(0)
         Return
     } 
-    
+    ToggleLock(1)
     ; Basic Input mapping
     IfWinActive, Assist_And_Support
     {

@@ -5,3 +5,14 @@ window.setTimeout(function () {
   location.reload();
   console.log("Log - Page Refreshed");
 }, 900000);
+
+// Ensure that the user has internet.
+function internetStatus() {
+  if (navigator.onLine === false) {
+    let body = document.querySelector("body");
+    body.style.backgroundColor = "red";
+    body.style;
+    body.innerHTML =
+      "<p style=' text-align: center;color: white;position:absolute; top:40%; left:20vw; right:20vw;'><b>Assist and Support Requires an Internet Connect.</b> <br> <br>If you internet is working please ensure that anti-virus and firewall applications are not blocking this application.<br><br> The application will attempt to reconnect automatically every 15 minutes.</p>";
+  }
+}

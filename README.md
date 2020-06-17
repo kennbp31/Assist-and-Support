@@ -1,30 +1,42 @@
 # Assist-and-Support
 
-Application to aid individuals with severe dissabilities. Goal is to provide an accessible ui to control their computers and environments. Will interface with sip and puff inputs and more
- 
-# DONE
- Back end Built using electron and SQLite3<br>
- Skype API interface completed.<br>
- Auto Hot Key scripts initiate and end calls<br>
- Contacts screen built on SQLite3 allows adding and editing contacts<br>
- Weather and Date/Time displays added to homescreen<br>
- Favorites added to homescreen (Option available when contacts are added or editted.)<br>
-  Add configuration for users to define their input device<br>
-  Add options to hide elements of home screen<br>
- 
-# V1 - TODO:
- Configurations: Adjust delay on skype opening, allow users to disable hotkeys, add information regarding application logic. (Gets confusing when your PC does stuff you didn't think it would do on its own...)
- Adjust AHK to reopen app if it closes or crashes.<br>
- 
-# V1.1 and beyond - TODO:
- Read Aloud added for blind individuals<br>
- Multi-Language Support<br>
- Weather and Date/Time are interactive (Forecast and Calendar open when clicked)<br>
- Interface with IR Remote to control TV and other IR appliances<br>
- Add support for common streaming services (Netflix, Hulu, Etc..)<br>
- Add dial pad support (May be able to use skypes dial pad?)<br>
- Interface with Environmental Controls (Nest, and others???)<br>
- 
+This application provides individuals with disabilities or any difficulty using a PC an easy to navigate user interface that automates some common PC functions.<br>
+This applications first iteration will automate making and ending skype calls, display the weather, date and time.
 
- 
- 
+# This is the current landing page will the user will complete most of their daily functions.
+
+[/Screenshots/main.JPG]
+
+# Users can setup custom input bindings for adaptive technology or other inputs using configurations.
+
+[/Screenshots/input.JPG]
+
+# Users also need to configure the speed of their PC to allow for proper interfacing with Skype by setting another preference.
+
+[/Screenshots/Skype_Preference.JPG]
+
+# All contacts are stored in the app and can include phone numbers or Skype IDs.
+
+[/Screenshots/contacts.JPG]
+
+# Completed Features
+
+Back end Built using electron and SQLite3<br>
+Skype API interface completed.<br>
+Auto Hot Key scripts initiate and end calls<br>
+Contacts screen built on SQLite3 allows adding and editing contacts<br>
+Weather and Date/Time displays added to homescreen<br>
+Favorites added to homescreen (Option available when contacts are added or editted.)<br>
+Add configuration for users to define their input device<br>
+Added configuration for exclusive fullscreen and setting Skype call delay. <br>
+
+# TODO:
+
+Adjust AHK to reopen app if it closes or crashes.<br>
+Read Aloud added for blind individuals<br>
+Multi-Language Support<br>
+Weather and Date/Time are interactive (Forecast and Calendar open when clicked)<br>
+Interface with IR Remote to control TV and other IR appliances<br>
+Add support for common streaming services (Netflix, Hulu, Etc..)<br>
+Add dial pad support (May be able to use skypes dial pad?)<br>
+Interface with Environmental Controls (Nest, and others???)<br>

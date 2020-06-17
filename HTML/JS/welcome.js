@@ -5,7 +5,6 @@ const { load, write } = require("../JS/iniConnect.js");
 
 function loadIni() {
   let config = load.loadIni("config.ini");
-  //load.loadIni("config.ini");
   if (config.Welcome.Display === false)
     document.getElementById("welcome").innerHTML = "";
 }
