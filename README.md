@@ -6,7 +6,8 @@ This application provides individuals with disabilities or any difficulty using 
 
 This applications first iteration will automate making and ending skype calls, display the weather, date and time, interface with adaptive technology such as a sip/puff.
 
-# This is the current landing page will the user will complete most of their daily functions.
+# This is the current landing page.
+The user will complete most of their daily functions here.
 
 ![Screenshot](/Screenshots/main.JPG)
 
